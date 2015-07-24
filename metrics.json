@@ -1,0 +1,18 @@
+{
+  "PORT_RESPONSE": {
+    "defaultAggregate": "AVG",
+    "defaultResolutionMS": 5000,
+    "description": "Measurement of the time to connect to a TCP/IP port",
+    "displayName": "Port Response Time (ms)",
+    "displayNameShort": "Port Resp.",
+    "unit": "number"
+  },
+  "PORT_STATUS": {
+    "defaultAggregate": "MAX",
+    "defaultResolutionMS": 5000,
+    "description": "Indicates if the port is open or closed: 0 - Closed, 1 - Open",
+    "displayName": "Port Status",
+    "displayNameShort": "Redis Commands",
+    "unit": "number"
+  }
+}
