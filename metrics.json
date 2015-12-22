@@ -5,7 +5,7 @@
     "description": "Measurement of the time to connect to a TCP/IP port",
     "displayName": "Port Response Time (ms)",
     "displayNameShort": "Port Resp.",
-    "unit": "number"
+    "unit": "duration"
   },
   "PORT_STATUS": {
     "defaultAggregate": "MAX",
