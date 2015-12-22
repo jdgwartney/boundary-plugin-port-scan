@@ -1,4 +1,4 @@
-# Boundary Port Scan Plugin
+# TrueSight Pulse Port Scan Plugin
 
 Measures the time to establish a connection on a TCP/IP port of a host.
 
@@ -8,10 +8,9 @@ Measures the time to establish a connection on a TCP/IP port of a host.
 |:----------|:-----:|:-------:|:-------:|:----:|
 | Supported |   v   |    v    |    v    |  v   |
 
-#### For Boundary Meter v4.2 or later
+#### For TrueSight Pulse Meter v4.2 or later
 
 - To install new meter go to Settings->Installation or [see instructions](https://help.boundary.com/hc/en-us/sections/200634331-Installation).
-- To upgrade the meter to the latest version - [see instructions](https://help.boundary.com/hc/en-us/articles/201573102-Upgrading-the-Boundary-Meter). 
 
 ### Plugin Setup
 
@@ -28,7 +27,7 @@ None
 
 ### Metrics Collected
 
-|Metric Name               |Description|
-|:-------------------------|:----------|
-|Redis Connected Clients   |           |
-|Redis Key Hits            |           |
+|Metric Name   |Description                                                  |
+|:-------------|:------------------------------------------------------------|
+|PORT\_RESPONSE|Duration of the time to connect to a TCP/IP port             |
+|PORT\_STATUS  |Indicates if the port is open or closed: 0 - Closed, 1 - Open|
