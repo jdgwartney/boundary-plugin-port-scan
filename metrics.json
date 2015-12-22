@@ -3,7 +3,7 @@
     "defaultAggregate": "AVG",
     "defaultResolutionMS": 5000,
     "description": "Measurement of the time to connect to a TCP/IP port",
-    "displayName": "Port Response Time (ms)",
+    "displayName": "Port Response Time",
     "displayNameShort": "Port Resp.",
     "unit": "duration"
   },
