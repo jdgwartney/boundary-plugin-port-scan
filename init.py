@@ -51,7 +51,7 @@ class PortScanPlugin:
             lresult = 1
         else:
             lresult = 0
-        stdout.write("PORT_AVAILABILITY {0} {1}\n".format(lresult, self.source))
+        stdout.write("PORT_STATUS {0} {1}\n".format(lresult, self.source))
         stdout.write("PORT_RESPONSE {0} {1}\n".format(self.response, self.source))
 	stdout.flush()
 
