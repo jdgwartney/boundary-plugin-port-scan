@@ -16,7 +16,7 @@
 from datetime import datetime
 from time import sleep
 import socket
-import sys
+from sys import stdout, stderr
 import json
 
 
@@ -51,8 +51,9 @@ class PortScanPlugin:
             lresult = 1
         else:
             lresult = 0
-        print("PORT_AVAILABILITY {0} {1}".format(lresult, self.source))
-        print("PORT_RESPONSE {0} {1}".format(self.response, self.source))
+        stdout.write("PORT_AVAILABILITY {0} {1}\n".format(lresult, self.source))
+        stdout.write("PORT_RESPONSE {0} {1}\n".format(self.response, self.source))
+	stdout.flush()
 
     def execute(self):
         self.parse_configuration()
@@ -68,9 +69,9 @@ class PortScanPlugin:
                 self.result = sock.connect_ex((ip, self.port))
                 sock.close()
             except socket.gaierror:
-                sys.stderr.write("Hostname could not be resolved.\n")
+                stderr.write("Hostname could not be resolved.\n")
             except socket.error:
-                sys.stderr.write("Couldn't connect to server\n")
+                stderr.write("Couldn't connect to server\n")
             # Checking the time again
             t2 = datetime.now()
 
