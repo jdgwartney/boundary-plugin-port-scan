@@ -12,7 +12,7 @@
     "defaultResolutionMS": 5000,
     "description": "Indicates if the port is open or closed: 0 - Closed, 1 - Open",
     "displayName": "Port Status",
-    "displayNameShort": "Redis Commands",
+    "displayNameShort": "Port Status",
     "unit": "number"
   }
 }

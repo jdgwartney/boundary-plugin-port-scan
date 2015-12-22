@@ -1,0 +1,49 @@
+{
+  "name" : "TrueSight Pulse Port Scan Plugin",
+  "version" : "0.8.0",
+  "meterVersionRequired" : "4.2.0-611",
+  "unsupportedPlatforms" : [ ],
+  "tags" : "port",
+  "description": "TrueSight Pulse Port Scan Plugin",
+  "icon": "icon.png",
+  "command": "python init.py",
+  "postExtract" : "",
+
+  "metrics" : [
+    "PORT_RESPONSE",
+    "PORT_STATUS"
+  ],
+  "paramSchema": [
+    {
+      "title": "Host",
+      "name": "host",
+      "description": "Host to where port is listening",
+      "type": "string",
+      "default": "127.0.0.1",
+      "required" : true
+    },
+    {
+      "title" : "Port",
+      "name" : "port",
+      "description" : "Number of the listening port",
+      "type" : "integer",
+      "default" : 80,
+      "required" : true
+    },
+    {
+      "title": "Poll Interval (ms)",
+      "name": "pollInterval",
+      "description": "The Poll Interval (in milliseconds) to poll for metrics.",
+      "type": "integer",
+      "default": 5000,
+      "required": true
+    },
+    {
+      "title" : "Source",
+      "name" : "source",
+      "description" : "The Source to display in the legend for the data. It will default to the hostname of the server",
+      "type" : "string",
+      "required": false
+    }
+  ]
+}
