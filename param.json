@@ -1,40 +1,16 @@
 {
   "items": [
     {
-      "host" : "localhost",
-      "port" : 6379,
+      "host" : "www.bmc.com",
+      "port" : 80,
       "pollInterval": 5000,
-      "source": "Red"
+      "source": "www.bmc.com"
     },
     {
-      "host" : "localhost",
-      "port" : 6379,
+      "host" : "www.apple.com",
+      "port" : 80,
       "pollInterval": 5000,
-      "source": "Green"
-    },
-    {
-      "host" : "localhost",
-      "port" : 6379,
-      "pollInterval": 5000,
-      "source": "Blue"
-    },
-    {
-      "host" : "localhost",
-      "port" : 6379,
-      "pollInterval": 5000,
-      "source": "Yellow"
-    },
-    {
-      "host" : "localhost",
-      "port" : 6379,
-      "pollInterval": 5000,
-      "source": "Magenta"
-    },
-    {
-      "host" : "localhost",
-      "port" : 6379,
-      "pollInterval": 5000,
-      "source": "cyan"
+      "source": "www.apple.com"
     }
   ],
   "pollInterval": 5000
