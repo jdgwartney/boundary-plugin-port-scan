@@ -21,12 +21,11 @@ import json
 
 
 class PortScanPlugin:
-
     def __init__(self):
         self.host = None
         self.port = None
-	self.pollInterval = None
-	self.source = socket.gethostname()
+        self.pollInterval = None
+        self.source = socket.gethostname()
         self.result = None
         self.response = None
         self.config = None
@@ -37,23 +36,23 @@ class PortScanPlugin:
             self.host = self.config['host']
             self.port = self.config['port']
             self.poll_interval = float(self.config['pollInterval']) / 1000.0
-	    if len(self.config['source']) > 0:
-	    	self.source = self.config['source']
-	    else:
-		self.source = self.host
+            if len(self.config['source']) > 0:
+                self.source = self.config['source']
+            else:
+                self.source = self.host
 
     def total_seconds(self, td):
-        return (float(td.microseconds) + (float(td.seconds) + float(td.days) * 24 * 3600) * 10**6) / 10**6
+        return (float(td.microseconds) + (float(td.seconds) + float(td.days) * 24 * 3600) * 10 ** 6) / 10 ** 6
 
     def print_metric(self):
+	result = None
         # Port is consider available if the connection is successful
-        if self.result == 0:
-            lresult = 1
+        if self.result is None:
+            result = -1
         else:
-            lresult = 0
-        stdout.write("PORT_STATUS {0} {1}\n".format(lresult, self.source))
-        stdout.write("PORT_RESPONSE {0} {1}\n".format(self.response, self.source))
-	stdout.flush()
+            result = self.response
+        stdout.write("PORT_RESPONSE {0} {1}\n".format(result, self.source))
+        stdout.flush()
 
     def execute(self):
         self.parse_configuration()
@@ -61,27 +60,37 @@ class PortScanPlugin:
 
     def scan_ports(self):
         while True:
-            t1 = datetime.now()
             try:
+                t1 = datetime.now()
+		self.response = None
                 ip = socket.gethostbyname(self.host)
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		sock.settimeout(float(self.poll_interval))
                 # Returns 0 if successful otherwise errno indicating the error
-                self.result = sock.connect_ex((ip, self.port))
+                self.result = sock.connect((ip, self.port))
                 sock.close()
+
+                # Checking the time again
+                t2 = datetime.now()
+
+                # Calculates the difference of time, to see how long it took to run the script
+                t = t2 - t1
+
+                self.response = self.total_seconds(t) * 1000
+
             except socket.gaierror:
                 stderr.write("Hostname could not be resolved.\n")
+		stderr.flush()
+            except socket.timeout:
+                stderr.write("Socket connection timed out.\n")
+		stderr.flush()
             except socket.error:
                 stderr.write("Couldn't connect to server\n")
-            # Checking the time again
-            t2 = datetime.now()
+		stderr.flush()
 
-            # Calculates the difference of time, to see how long it took to run the script
-            t = t2 - t1
-            self.response = self.total_seconds(t) * 1000
             self.print_metric()
             sleep(self.poll_interval)
 
 if __name__ == "__main__":
     p = PortScanPlugin()
     p.execute()
-

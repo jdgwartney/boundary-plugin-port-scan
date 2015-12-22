@@ -6,13 +6,5 @@
     "displayName": "Port Response Time",
     "displayNameShort": "Port Resp.",
     "unit": "duration"
-  },
-  "PORT_STATUS": {
-    "defaultAggregate": "MAX",
-    "defaultResolutionMS": 5000,
-    "description": "Indicates if the port is open or closed: 0 - Closed, 1 - Open",
-    "displayName": "Port Status",
-    "displayNameShort": "Port Status",
-    "unit": "number"
   }
 }

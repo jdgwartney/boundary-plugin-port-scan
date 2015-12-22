@@ -27,7 +27,6 @@ None
 
 ### Metrics Collected
 
-|Metric Name   |Description                                                  |
-|:-------------|:------------------------------------------------------------|
-|PORT\_RESPONSE|Duration of the time to connect to a TCP/IP port             |
-|PORT\_STATUS  |Indicates if the port is open or closed: 0 - Closed, 1 - Open|
+|Metric Name   |Description                                     |
+|:-------------|:-----------------------------------------------|
+|PORT\_RESPONSE|Duration of the time to connect to a TCP/IP port|
