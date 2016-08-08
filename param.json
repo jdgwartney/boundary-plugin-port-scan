@@ -1,6 +1,17 @@
 {
-  "host": "www.bmc.com",
-  "port" : 80,
-  "pollInterval": 5000,
-  "source": ""
+  "items": [
+    {
+      "host": "www.bmc.com",
+      "port" : 80,
+      "pollInterval": 5000,
+      "source": "BMC"
+    },
+    {
+      "host": "www.apple.com",
+      "port" : 80,
+      "pollInterval": 5000,
+      "source": "Apple"
+    }
+  ],
+  "pollInterval": 5000
 }

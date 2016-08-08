@@ -6,7 +6,7 @@
   "tags" : "port",
   "description": "TrueSight Pulse Port Scan Plugin",
   "icon": "icon.png",
-  "command": "python init.py",
+  "command": "python plugin_runner.py plugin PortScanPlugin",
   "postExtract" : "",
   "dashboards": [
      {

@@ -13,11 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from datetime import datetime
-from time import sleep
 import socket
-from sys import stdout, stderr
 import json
+from threading import Thread, Lock
+from port_scanner import PortScanner
 
 
 class PortScanPlugin:
@@ -33,63 +32,39 @@ class PortScanPlugin:
     def parse_configuration(self):
         with open('param.json') as f:
             self.config = json.load(f)
-            self.host = self.config['host']
-            self.port = self.config['port']
-            self.poll_interval = float(self.config['pollInterval']) / 1000.0
-            if len(self.config['source']) > 0:
-                self.source = self.config['source']
-            else:
-                self.source = self.host
-
-    def total_seconds(self, td):
-        return (float(td.microseconds) + (float(td.seconds) + float(td.days) * 24 * 3600) * 10 ** 6) / 10 ** 6
-
-    def print_metric(self):
-	result = None
-        # Port is consider available if the connection is successful
-        if self.result is None:
-            result = -1
-        else:
-            result = self.response
-        stdout.write("PORT_RESPONSE {0} {1}\n".format(result, self.source))
-        stdout.flush()
 
     def execute(self):
         self.parse_configuration()
-        self.scan_ports()
+        self.run()
 
-    def scan_ports(self):
-        while True:
-            try:
-                t1 = datetime.now()
-		self.response = None
-                ip = socket.gethostbyname(self.host)
-                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		sock.settimeout(float(self.poll_interval))
-                # Returns 0 if successful otherwise errno indicating the error
-                self.result = sock.connect((ip, self.port))
-                sock.close()
+    def run(self):
+        stdoutmutex = Lock()  # same as thread.allocate_lock()
 
-                # Checking the time again
-                t2 = datetime.now()
+        threads = []
+        config_items = self.config['items']
+        print(len(config_items))
+        for item in config_items:
+            host = item['host']
+            port = item['port']
+            source = item['source']
+            if len(source) == 0:
+                source = host
+            interval = item['pollInterval']
 
-                # Calculates the difference of time, to see how long it took to run the script
-                t = t2 - t1
+            print(host)
+            p = PortScanner(host=host,
+                            port=port,
+                            source=source,
+                            interval=interval,
+                            mutex=stdoutmutex)
+            thread = Thread(target=p.scan_port())
+            threads.append(thread)
 
-                self.response = self.total_seconds(t) * 1000
+        for thread in threads:
+            thread.start()
 
-            except socket.gaierror:
-                stderr.write("Hostname could not be resolved.\n")
-		stderr.flush()
-            except socket.timeout:
-                stderr.write("Socket connection timed out.\n")
-		stderr.flush()
-            except socket.error:
-                stderr.write("Couldn't connect to server\n")
-		stderr.flush()
-
-            self.print_metric()
-            sleep(self.poll_interval)
+        for thread in threads:
+            thread.join()  # wait for thread exits
 
 if __name__ == "__main__":
     p = PortScanPlugin()
