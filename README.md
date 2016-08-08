@@ -1,16 +1,12 @@
 # TrueSight Pulse Port Scan Plugin
 
-Measures the time to establish a connection on a TCP/IP port of a host.
+Measures the time to establish a connection on a TCP/IP port of a network host.
 
 ### Prerequisites
 
 |     OS    | Linux | Windows | SmartOS | OS X |
 |:----------|:-----:|:-------:|:-------:|:----:|
 | Supported |   v   |    v    |    v    |  v   |
-
-#### For TrueSight Pulse Meter v4.2 or later
-
-- To install new meter go to Settings->Installation or [see instructions](https://help.boundary.com/hc/en-us/sections/200634331-Installation).
 
 ### Plugin Setup
 
